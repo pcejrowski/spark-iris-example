@@ -22,7 +22,8 @@ object IrisClustering {
 
     val data: RDD[Vector] = sourceCSV
       .map(_.take(4))
-      .map(x => Vectors.dense(x.map(_.toDouble)))
+      .map(_.map(_.toDouble))
+      .map(Vectors.dense)
 
     val kMeans: KMeansModel = new KMeans()
       .setK(3)
@@ -32,9 +33,7 @@ object IrisClustering {
     kMeans
       .predict(data)
       .zip(labels)
-      .map {
-        case (received, real) => s"$real,$received"
-      }
+      .map { case (received, real) => s"$real,$received" }
       .repartition(1)
       .saveAsTextFile("results")
   }
