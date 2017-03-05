@@ -9,7 +9,7 @@ object IrisClustering {
 
   def main(args: Array[String]): Unit = {
     val conf: SparkConf = new SparkConf()
-      .setAppName("user-topics-clustering")
+      .setAppName("iris-kmeans-clustering")
       .setMaster("local[4]")
     val sc: SparkContext = new SparkContext(conf)
 
